@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
+#
+# Central CodeRabbit settings for every SovereignTechnology repository that has no .coderabbit.yaml of its own
+# (CodeRabbit reads this repo, named exactly `coderabbit`, as the account-wide default; a repo's own file wins).
+# sovtechpro[bot] (the sentinel) asks CodeRabbit to review, fix and fix CI through its chat commands, and pings the
+# maintainer when CodeRabbit has approved and CI is green, so the bot itself spends no model tokens on public repos.
+language: en-US
+
+reviews:
+  profile: assertive
+  # Request changes for blocking findings; approve once they are resolved and the latest commit is reviewed.
+  # The approval is the "ready to merge" signal the bot waits for.
+  auto_approvals:
+    enabled: true
+  poem: false
+  review_status: true
+  commit_status: true
+  enable_prompt_for_ai_agents: true
+  high_level_summary: true
+  auto_review:
+    enabled: true
+    drafts: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 0     # never stop reviewing a long-lived PR
+    ignore_title_keywords: ["WIP", "DO NOT REVIEW"]
+    ignore_usernames: ["dependabot[bot]", "renovate[bot]"]   # the bot's sentinel reviews dependency bumps itself
+  finishing_touches:
+    autofix:
+      enabled: true
+    fix_ci:
+      enabled: true
+    resolve_merge_conflict:
+      enabled: true
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/target/**"
+    - "!**/dist/**"
+    - "!**/*.min.js"
+  path_instructions:
+    - path: "**"
+      instructions: >-
+        Flag anything that must never be committed: private keys, nsec/seed words, API tokens, passwords, and
+        Bitcoin or Lightning public key material (xpub/ypub/zpub, descriptors, addresses, node pubkeys/URIs,
+        channel points), even in tests, fixtures and docs.
+    - path: "**/.github/workflows/**"
+      instructions: >-
+        Check for script injection (untrusted ${{ }} values in run steps), pull_request_target that checks out PR
+        code, unpinned third-party actions, over-broad permissions, and long-running or network-server jobs
+        (VPN, proxy or exit-node workloads on a runner are not allowed).
+  tools:
+    semgrep:
+      enabled: true
+    opengrep:
+      enabled: true
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
+    osvScanner:
+      enabled: true
+    trivy:
+      enabled: true
+    checkov:
+      enabled: true
+    zizmor:
+      enabled: true
+    actionlint:
+      enabled: true
+    shellcheck:
+      enabled: true
+    hadolint:
+      enabled: true
+    github-checks:
+      enabled: true
+
+chat:
+  auto_reply: true
