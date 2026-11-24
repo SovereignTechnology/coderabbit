@@ -3,15 +3,16 @@
 # Central CodeRabbit settings for every SovereignTechnology repository that has no .coderabbit.yaml of its own
 # (CodeRabbit reads this repo, named exactly `coderabbit`, as the account-wide default; a repo's own file wins).
 # sovtechpro[bot] (the sentinel) asks CodeRabbit to review, fix and fix CI through its chat commands, and pings the
-# maintainer when CodeRabbit has approved and CI is green, so the bot itself spends no model tokens on public repos.
+# maintainer when CodeRabbit found nothing open and CI is green, so the bot itself spends no model tokens on public repos.
 language: en-US
 
 reviews:
   profile: assertive
-  # Request changes for blocking findings; approve once they are resolved and the latest commit is reviewed.
-  # The approval is the "ready to merge" signal the bot waits for.
+  # Off (live test 2026-11-24): on the open-source plan CodeRabbit never approved by itself, and with this on a PR it had
+  # already fixed stayed "changes requested" forever ("could not confirm approval"). Findings arrive as normal review
+  # comments instead; the sentinel reads "No actionable comments" and the CodeRabbit check to know a commit is clean.
   auto_approvals:
-    enabled: true
+    enabled: false
   poem: false
   review_status: true
   commit_status: true

@@ -4,7 +4,7 @@ Account-wide [CodeRabbit](https://docs.coderabbit.ai/configuration/central-confi
 SovereignTechnology repositories. CodeRabbit reads `.coderabbit.yaml` here for every repository that has no file of its
 own; a repository's own `.coderabbit.yaml` wins.
 
-- Assertive reviews, drafts included, with approval once its findings are resolved.
+- Assertive reviews, drafts included. Automatic approvals are off (they never fired on the open-source plan).
 - Fix comments, fix CI and merge-conflict help are on.
 - Secret, supply-chain and workflow scanners are on (Semgrep, Gitleaks, TruffleHog, OSV-Scanner, Trivy, Checkov,
   zizmor, actionlint, ShellCheck, Hadolint).
