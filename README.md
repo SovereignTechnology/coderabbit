@@ -11,3 +11,5 @@ own; a repository's own `.coderabbit.yaml` wins.
 - Dependabot and Renovate PRs are skipped (dependency bumps are checked separately).
 
 Check which file a pull request used with `@coderabbitai configuration` (values from here read "Central YAML").
+
+Note: this line exists only to check that CodeRabbit covers new repositories.
