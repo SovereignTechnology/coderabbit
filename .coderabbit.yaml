@@ -3,16 +3,18 @@
 # Central CodeRabbit settings for every SovereignTechnology repository that has no .coderabbit.yaml of its own
 # (CodeRabbit reads this repo, named exactly `coderabbit`, as the account-wide default; a repo's own file wins).
 # sovtechpro[bot] (the sentinel) asks CodeRabbit to review, fix and fix CI through its chat commands, and pings the
-# maintainer when CodeRabbit found nothing open and CI is green, so the bot itself spends no model tokens on public repos.
+# maintainer when CodeRabbit approved (or found nothing) and CI is green, so no model tokens are spent on public repos.
 language: en-US
 
 reviews:
   profile: assertive
-  # Off (live test 2026-11-24): on the open-source plan CodeRabbit never approved by itself, and with this on a PR it had
-  # already fixed stayed "changes requested" forever ("could not confirm approval"). Findings arrive as normal review
-  # comments instead; the sentinel reads "No actionable comments" and the CodeRabbit check to know a commit is clean.
+  # Request changes for blocking findings, approve once they are resolved and the latest commit is reviewed (the same
+  # policy rbitcoin-org/rbitcoin runs: approve only at minimal merge and security risk; anything riskier waits for a
+  # person). Push the fix and answer each thread ("Fixed in <sha>"), and CodeRabbit resolves and approves on its own.
   auto_approvals:
-    enabled: false
+    enabled: true
+    max_merge_risk: minimal
+    max_security_risk: minimal
   poem: false
   review_status: true
   commit_status: true
@@ -76,3 +78,25 @@ reviews:
 
 chat:
   auto_reply: true
+
+# What CodeRabbit learns in one repository (a correction in a review thread) applies in all of them, and it reads the
+# repositories' own rule files as coding guidelines.
+knowledge_base:
+  learnings:
+    scope: global
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "**/CLAUDE.md"
+      - "**/AGENTS.md"
+      - "**/CONTRIBUTING.md"
+  web_search:
+    enabled: true
+
+# New issues get related code, likely causes and a suggested approach from CodeRabbit; `@coderabbitai plan` on an
+# issue writes an implementation plan.
+issue_enrichment:
+  auto_enrich:
+    enabled: true
+  planning:
+    enabled: true
