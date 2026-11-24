@@ -11,10 +11,11 @@ reviews:
   # Request changes for blocking findings, approve once they are resolved and the latest commit is reviewed (the same
   # policy rbitcoin-org/rbitcoin runs: approve only at minimal merge and security risk; anything riskier waits for a
   # person). Push the fix and answer each thread ("Fixed in <sha>"), and CodeRabbit resolves and approves on its own.
+  # No security-risk limit: CodeRabbit has no security assessment for some commits (a docs-only change), and a limit
+  # then withholds every approval ("Unavailable for this commit", seen live 2026-11-24).
   auto_approvals:
     enabled: true
     max_merge_risk: minimal
-    max_security_risk: minimal
   poem: false
   review_status: true
   commit_status: true
@@ -22,7 +23,9 @@ reviews:
   high_level_summary: true
   auto_review:
     enabled: true
-    drafts: true
+    # The free open-source allowance is about one review an hour per repository at our star counts ("Review limit
+    # reached"), so reviews go to finished work: a draft is reviewed when it is marked ready, or on `@coderabbitai review`.
+    drafts: false
     auto_incremental_review: true
     auto_pause_after_reviewed_commits: 0     # never stop reviewing a long-lived PR
     ignore_title_keywords: ["WIP", "DO NOT REVIEW"]
